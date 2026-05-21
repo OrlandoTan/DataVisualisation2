@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia in the Age of AI</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- Bodoni Moda -->
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <!-- Vegalite -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+
+    <script src="vega_lite_vis.js"></script>
+</head>
+<body>
+    <div class="page-frame">
+        <section id="hero">
+            <div class="container">
+                <div class="hero-rule"></div>
+                <h1>Australia in the Age of <em>AI</em></h1>
+                <p class="subtitle">
+                    Who's using it, who's benefiting,
+                    and who's being left behind.
+                </p>
+                <p class="byline">By <span> Orlando Dylan Tan</span></p>
+            </div>
+        </section>
+
+        <section id="introduction">
+            <div class="section-intro">
+            <p class="kicker">The Scale</p>
+            <h2>AI is no longer on the horizon.<br><em>It is here.</em></h2>
+            <p>
+                In just a few years, artificial intelligence has moved from research labs
+                into everyday Australian life, reshaping how Australians work, study, and do business, but not at the same pace, and not for everyone.
+            </p>
+            </div>
+            <div class="container-wide">
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">49<sup>%</sup></div>
+                        <p class="stat-desc">of Australians used generative AI in the past year</p>
+                        <p class="stat-source">Google Australia, 2024</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-number">52<sup>%</sup></div>
+                        <p class="stat-desc">of Australian businesses have adopted AI in some form</p>
+                        <p class="stat-sub">Yet for large businesses that figure reaches 100%, and just 63% for small businesses.</p>
+                        <p class="stat-source">Australian Industry Group, 2025</p>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <section>
+            <div class="section-intro">
+                <p class="kicker">Act 1 &nbsp;·&nbsp; Demand</p>
+                <h2>The demand for AI skills<br>has grown <em>fourfold</em></h2>
+                <p>Since 2015, the share of Australian job postings requiring
+                AI-related skills has quadrupled — a clear signal that employers
+                across industries are reorganising work around AI capability.</p>
+
+                <p class="chart-label" style="margin-top: 2.5rem;">AI-related job postings as a share of all Australian job listings, 2015-2024</p>
+                <div class="chart-wrap" id="growth-chart"></div>
+                <p class="chart-source">Source: CSIRO / NAIC Australia's AI Ecosystem Report, June 2025 · Lightcast job postings data</p>
+            </div>
+        </section>
+
+        <section id="geographical">
+            <div class="section-intro">
+                <p class="kicker">Act II &nbsp;·&nbsp; Geography</p>
+                <h2>Not all of Australia<br><em>is connected</em></h2>
+                <p>AI adoption and tech employment cluster heavily around New South Wales and Victoria, while regional and remote Australia lags significantly behind.</p>
+
+                <p class="chart-label" style="margin-top: 2.5rem;">AI-related job postings as a share of all Australian job listings, 2015-2024</p>
+                <div class="chart-wrap" id="geographical-chart"></div>
+                <p class="chart-source">Source: CSIRO / NAIC Australia's AI Ecosystem Report, June 2025 · AI adoption data</p>
+            </div>
+        </section>
+
+        <!-- WHO USES IT -->
+        <section id="who">
+        <div class="section-intro">
+            <p class="kicker">Act III &nbsp;·&nbsp; Who Uses It</p>
+            <h2>Adoption is uneven<br>across <em>industries</em></h2>
+            <p>Health, education and manufacturing lead AI adoption in Australia, while agriculture and retail lag significantly — raising questions about which workers and sectors will be left behind.</p>
+            <p class="chart-label" style="margin-top: 2.5rem;">AI adoption by industry, December 2024</p>
+            <div class="chart-wrap" id="who-chart"></div>
+            <p class="chart-source">Source: NAIC and Fifth Quadrant, 2025 · Note: values estimated from Figure 1, CSIRO AI Ecosystem Report, June 2025.</p>
+        </div>
+        </section>
+
+        <!-- WHERE AI BUSINESSES CLUSTER -->
+        <section id="sectors">
+        <div class="section-intro">
+            <p class="kicker">Act IV &nbsp;·&nbsp; Where AI Businesses Cluster</p>
+            <h2>Business processes dominate<br>Australia's <em>AI landscape</em></h2>
+            <p>Nearly half of all private Australian AI companies operate in business processes and IT infrastructure — while sectors like agriculture and hospitality remain on the periphery.</p>
+            <p class="chart-label" style="margin-top: 2.5rem;">Private Australian AI companies by sector</p>
+            <div class="chart-wrap" id="sectors-chart"></div>
+            <p class="chart-source">Source: CSIRO / NAIC Australia's AI Ecosystem Report, June 2025 · Figure 5 · Exact figures.</p>
+        </div>
+        </section>
+
+        <!-- AUTOMATION SKILL EXPOSURE -->
+        <section id="exposure">
+        <div class="section-intro">
+            <p class="kicker">Act V &nbsp;·&nbsp; Skill Exposure</p>
+            <h2>Not all jobs face<br><em>equal exposure</em></h2>
+            <p>Arts and media professionals now lead all occupations in AI skill demand — largely driven by hiring to train generative AI models. ICT professionals follow, while health workers and drivers remain almost untouched.</p>
+            <p class="chart-label" style="margin-top: 2.5rem;">Share of job postings requiring AI-related skills by occupation, 2024</p>
+            <div class="chart-wrap" id="exposure-chart"></div>
+            <p class="chart-source">Source: CSIRO / NAIC Australia's AI Ecosystem Report, June 2025 · Table 3 · Exact figures.</p>
+        </div>
+        </section>
+    </div>
+</body>
+</html>

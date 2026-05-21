@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 340,
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "axis": {
+      "labelColor": "#9a9690",
+      "labelFontSize": 11,
+      "domainColor": "#e0dbd4",
+      "tickColor": "#e0dbd4",
+      "gridColor": "#e0dbd4",
+      "gridOpacity": 0.6
+    }
+  },
+  "data": { "url": "../data/ai_skills_by_occupation.csv" },
+  "layer": [
+    {
+      "mark": { "type": "bar", "cornerRadiusEnd": 2, "color": "#e8d5d2" },
+      "encoding": {
+        "y": {
+          "field": "occupation",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": { "title": null, "labelLimit": 220 }
+        },
+        "x": {
+          "field": "pct",
+          "type": "quantitative",
+          "axis": {
+            "title": null,
+            "labelExpr": "datum.value + '%'",
+            "tickCount": 5
+          }
+        }
+      }
+    },
+    {
+      "description": "Highlight bar — Arts and media spike",
+      "transform": [
+        { "filter": "datum.occupation === 'Arts and media professionals'" }
+      ],
+      "mark": { "type": "bar", "cornerRadiusEnd": 2, "color": "#c0392b" },
+      "encoding": {
+        "y": {
+          "field": "occupation",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": { "title": null }
+        },
+        "x": {
+          "field": "pct",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "description": "National average reference line",
+      "data": { "values": [{ "avg": 0.9 }] },
+      "mark": {
+        "type": "rule",
+        "color": "#4a4640",
+        "strokeDash": [4, 4],
+        "strokeWidth": 1,
+        "opacity": 0.4
+      },
+      "encoding": {
+        "x": { "field": "avg", "type": "quantitative" }
+      }
+    },
+    {
+      "description": "National average label",
+      "data": { "values": [{ "avg": 0.9, "label": "National avg 0.9%" }] },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 4,
+        "dy": -80,
+        "fontSize": 10,
+        "fontStyle": "italic",
+        "color": "#9a9690"
+      },
+      "encoding": {
+        "x": { "field": "avg", "type": "quantitative" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+}

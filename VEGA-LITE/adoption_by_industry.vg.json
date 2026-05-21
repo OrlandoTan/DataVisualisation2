@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 320,
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "axis": {
+      "labelColor": "#9a9690",
+      "labelFontSize": 11,
+      "domainColor": "#e0dbd4",
+      "tickColor": "#e0dbd4",
+      "gridColor": "#e0dbd4",
+      "gridOpacity": 0.6
+    },
+    "legend": {
+      "labelColor": "#9a9690",
+      "labelFontSize": 11,
+      "titleColor": "#4a4640",
+      "titleFontSize": 11
+    }
+  },
+  "data": { "url": "data/adoption_by_industry.csv" },
+  "transform": [
+    {
+      "fold": ["adopting", "not_adopting", "not_aware"],
+      "as": ["status", "value"]
+    },
+    {
+      "calculate": "datum.status === 'adopting' ? 'Adopting' : datum.status === 'not_adopting' ? 'Not adopting' : 'Not aware'",
+      "as": "Status"
+    }
+  ],
+  "mark": { "type": "bar", "cornerRadiusEnd": 2 },
+  "encoding": {
+    "y": {
+      "field": "industry",
+      "type": "nominal",
+      "sort": "-x",
+      "axis": { "title": null, "labelLimit": 220 }
+    },
+    "x": {
+      "field": "value",
+      "type": "quantitative",
+      "stack": true,
+      "axis": {
+        "title": null,
+        "labelExpr": "datum.value + '%'",
+        "tickCount": 5
+      }
+    },
+    "color": {
+      "field": "Status",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Adopting", "Not adopting", "Not aware"],
+        "range": ["#c0392b", "#d4c5bc", "#ede8e3"]
+      },
+      "legend": { "title": null, "orient": "top" }
+    },
+    "order": {
+      "field": "Status",
+      "sort": "ascending"
+    }
+  }
+}

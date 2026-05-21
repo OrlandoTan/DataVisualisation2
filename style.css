@@ -1,0 +1,315 @@
+:root {
+    --ink: #1a1814;
+    --ink-light: #4a4640;
+    --ink-faint: #9a9690;
+
+    --paper: #f7f4ef;
+
+    --accent: #c0392b;
+    --accent-alt: #2c5f8a;
+
+    --rule: #e0dbd4;
+
+    --col-width: 980px;
+    --wide-width: 1100px;
+
+    --page-pad: clamp(1.5rem, 5vw, 6rem);
+
+    --font-display: "Playfair Display", serif;
+    --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ───────────────────────────── */
+/* RESET */
+/* ───────────────────────────── */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ───────────────────────────── */
+/* BASE */
+/* ───────────────────────────── */
+
+body {
+    background:
+        radial-gradient(
+            circle at top,
+            #e6ddd2 0%,
+            #c9b7a7 100%
+        );
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 2rem;
+
+    font-family: var(--font-body);
+
+    color: var(--ink);
+}
+
+.page-frame {
+    width: min(1280px, 100%);
+
+    background: var(--paper);
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    box-shadow: 0 20px 80px rgba(0,0,0,0.12);
+
+    position: relative;
+}
+
+
+/* ───────────────────────────── */
+/* LAYOUT */
+/* ───────────────────────────── */
+
+.container {
+    width: min(100%, var(--col-width));
+
+    margin-inline: auto;
+
+    padding-inline: var(--page-pad);
+}
+
+.container-wide {
+    width: min(100%, var(--wide-width));
+
+    margin-inline: auto;
+
+    padding-inline: var(--page-pad);
+}
+
+section {
+    padding-block: 7rem;
+}
+
+section + section {
+    border-top: 1px solid var(--rule);
+}
+
+/* ───────────────────────────── */
+/* HERO */
+/* ───────────────────────────── */
+
+#hero {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+}
+#hero .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+.hero-rule {
+    width: 60px;
+    height: 1.5px;
+    background: var(--accent);
+
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-family: var(--font-display);
+
+    font-size: clamp(3.5rem, 7vw, 5rem);
+    font-weight: 800;
+
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    max-width: 30ch;
+}
+
+h1 em {
+    color: var(--accent);
+    font-style: italic;
+}
+
+.subtitle {
+    font-family: var(--font-display);
+
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.7;
+
+    color: var(--ink-light);
+
+    max-width: 32rem;
+}
+
+.byline {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: var(--ink-faint);
+}
+
+.byline span {
+    color: var(--ink-light);
+}
+
+/* ───────────────────────────── */
+/* INTRODUCTION */
+/* ───────────────────────────── */
+
+.section-intro {
+  width: min(100%, var(--col-width));
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+  margin-bottom: 4rem;
+}
+
+.kicker {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+
+    color: var(--accent);
+
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-family: var(--font-display);
+
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+
+    margin-bottom: 1.5rem;
+}
+
+h2 em {
+    font-style: italic;
+    color: var(--accent);
+}
+
+.section-intro p:last-child {
+    max-width: 42rem;
+    color: var(--ink-light);
+}
+
+/* ───────────────────────────── */
+/* STAT GRID */
+/* ───────────────────────────── */
+
+.stat-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 2rem;
+}
+
+.stat-card {
+    padding: 2.5rem;
+
+    border: 1px solid var(--rule);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.65),
+            rgba(255,255,255,0.3)
+        );
+
+    backdrop-filter: blur(4px);
+}
+
+.stat-number {
+    font-family: var(--font-display);
+
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+
+    margin-bottom: 3rem;
+}
+
+.stat-number sup {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--accent);
+}
+
+.stat-desc {
+    color: var(--ink-light);
+    max-width: 20rem;
+    margin-bottom: 0.5rem;
+}
+.stat-sub {
+   font-size: 12px;
+      font-style: italic;
+      color: var(--ink-light);
+      max-width: 17.5rem;
+      line-height: 1.5;
+      margin-top: 0.1rem;
+      margin-bottom: 0.75rem;
+}
+.stat-source {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 1rem;
+}
+
+
+ /* ── Chart sections ───────────────────────────────── */
+.chart-wrap {
+    margin-top: 2rem;
+}
+.chart-label {
+    font-family: var(--font-display);
+    font-size: clamp(0.5rem, 3vw, 1rem);
+    color: var(--ink-light);
+    font-weight: 600;
+    line-height: 0.75;
+}
+
+.chart-source {
+    font-size: 0.72rem;
+
+    color: var(--ink-faint);
+
+    margin-top: 1rem;
+
+    line-height: 1.6;
+}
+
+
+/* ── Footer ───────────────────────────────────────── */
+footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--rule);
+    padding-left: var(--page-pad);
+}
+
+footer p {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    max-width: 520px;
+}
+
+/* Graph */
+#growth-chart {
+  width: 100%;
+  min-height: 340px;
+}
+#who-chart,
+#sectors-chart,
+#exposure-chart {
+  width: 100%;
+  min-height: 380px;
+}
