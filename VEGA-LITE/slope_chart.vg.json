@@ -1,0 +1,135 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 320,
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "view": { "stroke": null }
+  },
+  "data": { "url": "../data/slope_data.csv" },
+  "transform": [
+    {
+      "calculate": "datum.growth >= 0.10 ? 'rising' : datum.growth <= 0.058 ? 'flat' : 'mid'",
+      "as": "tier"
+    },
+    {
+      "calculate": "datum.state + '  ' + format(datum.adoption, '.0%')",
+      "as": "left_label"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "axis": null
+    },
+    "y": {
+      "field": "adoption",
+      "type": "quantitative",
+      "scale": { "domain": [0.4, 0.95] },
+      "axis": null
+    },
+    "detail": { "field": "state" }
+  },
+  "layer": [
+    {
+      "comment": "Vertical rule at 2024",
+      "mark": { "type": "rule", "color": "#4a4640", "strokeWidth": 2, "opacity": 0.1 },
+      "transform": [{ "filter": "datum.year === '2024'" }],
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "value": 0 },
+        "y2": { "signal": "height" }
+      }
+    },
+    {
+      "comment": "Vertical rule at 2028",
+      "mark": { "type": "rule", "color": "#4a4640", "strokeWidth": 2, "opacity": 0.1 },
+      "transform": [{ "filter": "datum.year === '2028'" }],
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "value": 0 },
+        "y2": { "signal": "height" }
+      }
+    },
+    {
+      "comment": "Year labels top",
+      "transform": [{ "filter": "datum.state === 'Australian Capital Territory'" }],
+      "mark": { "type": "text", "dy": -12, "fontSize": 11, "fontWeight": "600", "color": "#4a4640" },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "value": 0 },
+        "text": { "field": "year" }
+      }
+    },
+    {
+      "comment": "Slope lines",
+      "mark": { "type": "line", "strokeWidth": 2, "interpolate": "linear" },
+      "encoding": {
+        "color": {
+          "field": "tier", "type": "nominal",
+          "scale": {
+            "domain": ["rising", "mid", "flat"],
+            "range":  ["#de1e1c", "#4a4640", "#c9b5b0"]
+          },
+          "legend": null
+        },
+        "opacity": {
+          "field": "tier", "type": "nominal",
+          "scale": {
+            "domain": ["rising", "mid", "flat"],
+            "range":  [1, 0.75, 0.5]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "comment": "Endpoint dots",
+      "mark": { "type": "point", "filled": true, "size": 50 },
+      "encoding": {
+        "color": {
+          "field": "tier", "type": "nominal",
+          "scale": {
+            "domain": ["rising", "mid", "flat"],
+            "range":  ["#de1e1c", "#c9b5b0", "#d4cfc9"]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "comment": "Left: state name + 2024 value",
+      "transform": [{ "filter": "datum.year === '2024'" }],
+      "mark": { "type": "text", "align": "right", "dx": -10, "fontSize": 9 },
+      "encoding": {
+        "text": { "field": "left_label", "type": "nominal" },
+        "color": {
+          "field": "tier", "type": "nominal",
+          "scale": {
+            "domain": ["rising", "mid", "flat"],
+            "range":  ["#de1e1c", "#9a9690", "#c0bbb5"]
+          },
+          "legend": null
+        }
+      }
+    },
+    {
+      "comment": "Right: 2028 projected value",
+      "transform": [{ "filter": "datum.year === '2028'" }],
+      "mark": { "type": "text", "align": "left", "dx": 10, "fontSize": 9 },
+      "encoding": {
+        "text": { "field": "adoption", "format": ".0%" },
+        "color": {
+          "field": "tier", "type": "nominal",
+          "scale": {
+            "domain": ["rising", "mid", "flat"],
+            "range":  ["#de1e1c", "#9a9690", "#c0bbb5"]
+          },
+          "legend": null
+        }
+      }
+    }
+  ]
+}

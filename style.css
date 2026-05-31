@@ -302,10 +302,76 @@ footer p {
     max-width: 520px;
 }
 
+/* ── Act 1 Hero — two-column split ──────────────────── */
+
+#act1-hero {
+    padding-block: 0;          /* section handles its own spacing */
+}
+
+.act1-split {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    min-height: 640px;
+}
+
+/* Left: chart pane — deep ink background, full bleed */
+.act1-left {
+    background: var(--ink);
+    padding: 4rem clamp(2rem, 4vw, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.act1-chart-label {
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 1.5rem;
+}
+
+.act1-left .chart-source {
+    color: rgba(255,255,255,0.25);
+    margin-top: 1.5rem;
+}
+
+/* Right: editorial pane */
+.act1-right {
+    background: var(--paper);
+    padding: 4.5rem 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    border-left: 1px solid var(--rule);
+}
+
+.act1-rule {
+    width: 40px;
+    height: 1.5px;
+    background: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.act1-right .kicker {
+    margin-bottom: 0;
+}
+
+.act1-right h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin-bottom: 0;
+}
+
+.act1-body {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--ink-light);
+    max-width: 34ch;
+}
+
 /* Graph */
 #growth-chart {
   width: 100%;
-  min-height: 340px;
+  flex: 1;
+  min-height: 380px;
 }
 #who-chart,
 #sectors-chart,

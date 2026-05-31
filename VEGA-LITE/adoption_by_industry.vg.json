@@ -1,66 +1,166 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 700,
-  "height": 320,
+  "height": 380,
+  "autosize": {"type": "fit"},
   "background": "transparent",
-  "config": {
-    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
-    "axis": {
+
+  "data": [
+    {
+      "name": "table",
+      "url": "../data/adoption_by_industry.csv",
+      "format": {"type": "csv", "parse": {"adopting": "number", "not_adopting": "number", "not_aware": "number"}},
+      "transform": [
+        {
+          "type": "formula",
+          "as": "not_aware_start",
+          "expr": "-(datum.not_aware + datum.not_adopting / 2)"
+        },
+        {
+          "type": "formula",
+          "as": "not_aware_end",
+          "expr": "-(datum.not_adopting / 2)"
+        },
+        {
+          "type": "formula",
+          "as": "not_adopting_start",
+          "expr": "-(datum.not_adopting / 2)"
+        },
+        {
+          "type": "formula",
+          "as": "not_adopting_end",
+          "expr": "datum.not_adopting / 2"
+        },
+        {
+          "type": "formula",
+          "as": "adopting_start",
+          "expr": "datum.not_adopting / 2"
+        },
+        {
+          "type": "formula",
+          "as": "adopting_end",
+          "expr": "datum.not_adopting / 2 + datum.adopting"
+        }
+      ]
+    },
+    {
+      "name": "sorted",
+      "source": "table",
+      "transform": [
+        {"type": "collect", "sort": {"field": "adopting", "order": "descending"}}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {"data": "sorted", "field": "industry"},
+      "range": "height",
+      "padding": 0.3
+    },
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": [-70, 70],
+      "range": "width",
+      "nice": true
+    }
+  ],
+
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "x",
+      "tickCount": 7,
       "labelColor": "#9a9690",
-      "labelFontSize": 11,
+      "labelFontSize": 10,
       "domainColor": "#e0dbd4",
       "tickColor": "#e0dbd4",
       "gridColor": "#e0dbd4",
-      "gridOpacity": 0.6
-    },
-    "legend": {
-      "labelColor": "#9a9690",
-      "labelFontSize": 11,
-      "titleColor": "#4a4640",
-      "titleFontSize": 11
-    }
-  },
-  "data": { "url": "data/adoption_by_industry.csv" },
-  "transform": [
-    {
-      "fold": ["adopting", "not_adopting", "not_aware"],
-      "as": ["status", "value"]
-    },
-    {
-      "calculate": "datum.status === 'adopting' ? 'Adopting' : datum.status === 'not_adopting' ? 'Not adopting' : 'Not aware'",
-      "as": "Status"
+      "grid": true,
+      "title": "Adoption Rate",
+      "encode": {
+        "labels": {
+          "update": {
+            "text": {"signal": "abs(datum.value) + '%'"}
+          }
+        }
+      }
     }
   ],
-  "mark": { "type": "bar", "cornerRadiusEnd": 2 },
-  "encoding": {
-    "y": {
-      "field": "industry",
-      "type": "nominal",
-      "sort": "-x",
-      "axis": { "title": null, "labelLimit": 220 }
-    },
-    "x": {
-      "field": "value",
-      "type": "quantitative",
-      "stack": true,
-      "axis": {
-        "title": null,
-        "labelExpr": "datum.value + '%'",
-        "tickCount": 5
+
+  "marks": [
+    {
+      "type": "text",
+      "from": {"data": "sorted"},
+      "encode": {
+        "enter": {
+          "x": {"value": -8},
+          "y": {"scale": "y", "field": "industry", "band": 0.5},
+          "text": {"field": "industry"},
+          "align": {"value": "right"},
+          "baseline": {"value": "middle"},
+          "fontSize": {"value": 11},
+          "fill": {"value": "#4a4640"}
+        }
       }
     },
-    "color": {
-      "field": "Status",
-      "type": "nominal",
-      "scale": {
-        "domain": ["Adopting", "Not adopting", "Not aware"],
-        "range": ["#c0392b", "#d4c5bc", "#ede8e3"]
-      },
-      "legend": { "title": null, "orient": "top" }
+    {
+      "type": "rect",
+      "from": {"data": "sorted"},
+      "encode": {
+        "enter": {
+          "y": {"scale": "y", "field": "industry"},
+          "height": {"scale": "y", "band": 1},
+          "x": {"scale": "x", "field": "not_aware_start"},
+          "x2": {"scale": "x", "field": "not_aware_end"},
+          "fill": {"value": "#d4cfc9"},
+          "tooltip": {"signal": "{'Industry': datum.industry, 'Not aware': datum.not_aware + '%'}"}
+        }
+      }
     },
-    "order": {
-      "field": "Status",
-      "sort": "ascending"
+    {
+      "type": "rect",
+      "from": {"data": "sorted"},
+      "encode": {
+        "enter": {
+          "y": {"scale": "y", "field": "industry"},
+          "height": {"scale": "y", "band": 1},
+          "x": {"scale": "x", "field": "not_adopting_start"},
+          "x2": {"scale": "x", "field": "not_adopting_end"},
+          "fill": {"value": "#9a9690"},
+          "tooltip": {"signal": "{'Industry': datum.industry, 'Not adopting': datum.not_adopting + '%'}"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "sorted"},
+      "encode": {
+        "enter": {
+          "y": {"scale": "y", "field": "industry"},
+          "height": {"scale": "y", "band": 1},
+          "x": {"scale": "x", "field": "adopting_start"},
+          "x2": {"scale": "x", "field": "adopting_end"},
+          "fill": {"value": "#de1e1c"},
+          "tooltip": {"signal": "{'Industry': datum.industry, 'Adopting': datum.adopting + '%'}"}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "encode": {
+        "enter": {
+          "x": {"scale": "x", "value": 0},
+          "y": {"value": 0},
+          "y2": {"field": {"group": "height"}},
+          "stroke": {"value": "#1a1814"},
+          "strokeWidth": {"value": 1},
+          "strokeDash": {"value": [4, 3]}
+        }
+      }
     }
-  }
+  ]
 }

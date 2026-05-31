@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 280,
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "view": { "stroke": null },
+    "axis": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 10,
+      "titleColor": "#4a4640",
+      "titleFontSize": 10,
+      "titlePadding": 8,
+      "domainColor": "#e0dbd4",
+      "tickSize": 0,
+      "grid": false
+    },
+    "legend": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 9,
+      "titleColor": "#9a9690",
+      "titleFontSize": 9,
+      "titleFontWeight": "normal"
+    }
+  },
+  "data": { "url": "../data/state_industry_heatmap.csv" },
+  "layer": [
+    {
+      "mark": { "type": "rect" },
+      "encoding": {
+        "x": {
+          "field": "state",
+          "type": "nominal",
+          "title": null,
+          "sort": ["ACT", "VIC", "NSW", "QLD", "WA", "SA", "TAS", "NT"]
+        },
+        "y": {
+          "field": "industry",
+          "type": "nominal",
+          "title": null,
+          "sort": ["Services", "Retail trade", "Distribution", "Construction", "Agriculture", "Health and education", "Hospitality", "Manufacturing"],
+          "axis": { "labelLimit": 160 }
+        },
+        "color": {
+          "field": "adoption_pct",
+          "type": "quantitative",
+          "title": "Est. adoption (%)",
+          "scale": {
+            "domain": [30, 100],
+            "range": ["#f7f0ee", "#de1e1c"]
+          },
+          "legend": {
+            "orient": "right",
+            "direction": "vertical",
+            "gradientLength": 120,
+            "titleFontSize": 9,
+            "labelFontSize": 9,
+            "labelExpr": "datum.value + '%'"
+          }
+        },
+        "tooltip": [
+          { "field": "state",        "title": "State" },
+          { "field": "industry",     "title": "Industry" },
+          { "field": "adoption_pct", "title": "Est. AI adoption (%)", "format": ".0f" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "text", "fontSize": 8.5 },
+      "encoding": {
+        "x": {
+          "field": "state",
+          "type": "nominal",
+          "sort": ["Australian Capital Territory", "Victoria", "New South Wales", "Queensland", "Western Australia", "South Australia", "Tasmania", "Northern Territory"]
+        },
+        "y": {
+          "field": "industry",
+          "type": "nominal",
+          "sort": ["Services", "Retail trade", "Distribution", "Construction", "Agriculture", "Health and education", "Hospitality", "Manufacturing"]
+        },
+        "text": { "field": "adoption_pct", "format": ".0f" },
+        "color": {
+          "condition": { "test": "datum.adoption_pct > 70", "value": "white" },
+          "value": "#4a4640"
+        }
+      }
+    }
+  ]
+}

@@ -1,21 +1,26 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
-  "height": 500,
+  "width": "container",
+  "height": 400,
+  "autosize": { "type": "fit", "contains": "padding" },
   "background": "transparent",
   "config": {
     "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
-    "axis": {
-      "labelColor": "#9a9690",
-      "labelFontSize": 11,
-      "domainColor": "#e0dbd4",
-      "tickColor": "#e0dbd4",
-      "gridColor": "#e0dbd4",
-      "gridOpacity": 0.6
-    }
+    "legend": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 10,
+      "titleColor": "#4a4640",
+      "titleFontSize": 10,
+      "titleFontWeight": "normal"
+    },
+    "view": { "stroke": null }
   },
   "projection": {
-    "type": "mercator"
+    "type": "albers",
+    "rotate": [-132, 0, 0],
+    "center": [0, -27],
+    "parallels": [-18, -36],
+    "scale": 520
   },
   "data": {
     "url": "../data/STE_2016_AUST.json",
@@ -28,18 +33,7 @@
     {
       "lookup": "properties.STE_NAME16",
       "from": {
-        "data": {
-          "values": [
-            {"state": "Victoria", "ai_adoption": 0.254},
-            {"state": "New South Wales", "ai_adoption": 0.363},
-            {"state": "Queensland", "ai_adoption": 0.191},
-            {"state": "Western Australia", "ai_adoption": 0.094},
-            {"state": "South Australia", "ai_adoption": 0.062},
-            {"state": "Tasmania", "ai_adoption": 0.021},
-            {"state": "Australian Capital Territory", "ai_adoption": 0.012},
-            {"state": "Northern Territory", "ai_adoption": 0.003}
-          ]
-        },
+        "data": { "url": "../data/AdoptionState.csv" },
         "key": "state",
         "fields": ["ai_adoption"]
       }
@@ -47,21 +41,27 @@
   ],
   "mark": {
     "type": "geoshape",
-    "stroke": "#ffffff",
-    "strokeWidth": 1
+    "stroke": "#f7f7f7",
+    "strokeWidth": 1.5
   },
   "encoding": {
     "color": {
       "field": "ai_adoption",
       "type": "quantitative",
       "scale": {
-        "scheme": "orangered"
+        "domain": [0.4, 0.8],
+        "range": ["#d4cfc9", "#1a1814"]
       },
-      "title": "AI Adoption Rate"
+      "legend": {
+        "title": "AI Adoption Rate",
+        "format": ".0%",
+        "orient": "top-right",
+        "offset": 8
+      }
     },
     "tooltip": [
-      {"field": "properties.STE_NAME16", "type": "nominal", "title": "State"},
-      {"field": "ai_adoption", "type": "quantitative", "format": ".0%"}
+      { "field": "properties.STE_NAME16", "type": "nominal", "title": "State" },
+      { "field": "ai_adoption", "type": "quantitative", "title": "AI Adoption", "format": ".0%" }
     ]
   }
 }

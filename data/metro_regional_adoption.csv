@@ -1,0 +1,9 @@
+state,metro,regional,source
+Victoria,0.38,0.16,Derived (NAIC ratio)
+New South Wales,0.34,0.18,NAIC Q4 2024
+Queensland,0.32,0.14,Derived (NAIC ratio)
+Western Australia,0.32,0.11,NAIC Q4 2024
+South Australia,0.29,0.12,Derived (NAIC ratio)
+Tasmania,0.25,0.11,Derived (NAIC ratio)
+Australian Capital Territory,0.39,0.17,Derived (NAIC ratio)
+Northern Territory,0.24,0.1,Derived (NAIC ratio)

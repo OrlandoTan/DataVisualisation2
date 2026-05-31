@@ -1,0 +1,96 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 260,
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "view": { "stroke": null },
+    "axis": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 10,
+      "titleColor": "#4a4640",
+      "titleFontSize": 10,
+      "titlePadding": 8,
+      "domainColor": "#e0dbd4",
+      "tickColor": "#4a4640",
+      "tickSize": 4,
+      "gridColor": "#e0dbd4",
+      "gridOpacity": 0.4,
+      "gridWidth": 1
+    }
+  },
+  "data": { "url": "../data/demand.csv" },
+  "layer": [
+    {
+      "mark": { "type": "area", "opacity": 0.3, "color": "#de1e1c", "line": false, "interpolate": "monotone" }
+      ,
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal", "axis": { "title": null, "labelAngle": 0 } },
+        "y": { "field": "pct", "type": "quantitative", "scale": { "domain": [0, 1.2] }, "axis": { "title": "Share of all job postings (%)", "labelExpr": "datum.value + '%'" } }
+      }
+    },
+    {
+      "mark": { "type": "line", "strokeWidth": 3, "color": "#de1e1c", "interpolate": "monotone" },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "pct", "type": "quantitative", "scale": { "domain": [0, 1.2] } }
+      }
+    },
+    {
+      "mark": { "type": "point", "filled": true, "size": 55, "color": "#de1e1c" },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "pct", "type": "quantitative", "scale": { "domain": [0, 1.2] } },
+        "tooltip": [
+          { "field": "year", "title": "Year" },
+          { "field": "pct", "title": "AI job postings %", "format": ".1f" },
+          { "field": "note", "title": "Note" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "rule", "color": "#1a1814", "strokeWidth": 1.5, "strokeDash": [4, 3], "opacity":0.2},
+      "data": { "values": [{ "year": "2021" }] },
+      "encoding": { "x": { "field": "year", "type": "ordinal" } }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 8.5,
+        "fontStyle": "italic",
+        "fontWeight": "bold",
+        "font": "Georgia, 'Times New Roman', serif",
+        "align": "center",
+        "dx": 0,
+        "dy": -110,
+        "color": "#1a1814",
+        "lineBreak": "\n"
+      },
+      "data": { "values": [{ "year": "2021", "label": "2021 peak\n" }] },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "text": { "field": "label" }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 8.5,
+        "fontStyle": "italic",
+        "fontWeight": 300,
+        "font": "Georgia, 'Times New Roman', serif",
+        "align": "center",
+        "dx": 0,
+        "dy": -110,
+        "color": "#1a1814",
+        "lineBreak": "\n"
+      },
+      "data": { "values": [{ "year": "2021", "label": "\n1% of all postings now require AI" }] },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "text": { "field": "label" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 340,
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "view": { "stroke": null },
+    "axis": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 10,
+      "titleColor": "#4a4640",
+      "titleFontSize": 10,
+      "titlePadding": 8,
+      "domainColor": "#e0dbd4",
+      "tickColor": "#4a4640",
+      "tickSize": 4,
+      "gridColor": "#e0dbd4",
+      "gridOpacity": 0.1,
+      "gridWidth": 1
+    },
+    "legend": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 9,
+      "titleColor": "#4a4640",
+      "titleFontSize": 9,
+      "titleFontWeight": "normal",
+      "symbolStrokeWidth": 0
+    }
+  },
+  "data": { "url": "../data/occupation_quadrant.csv" },
+  "transform": [
+    {
+      "calculate": "datum.ai_demand >= 1.0 && datum.workers_thousands >= 500 ? 'Riding the wave' : datum.ai_demand < 1.0 && datum.workers_thousands >= 500 ? 'Safe for now' : datum.ai_demand >= 1.0 && datum.workers_thousands < 500 ? 'Scrambling' : 'Left behind'",
+      "as": "quadrant"
+    }
+  ],
+  "layer": [
+    {
+      "comment": "Quadrant background shading",
+      "data": {
+        "values": [
+          { "x1": 1.0,  "x2": 9.5,  "y1": 500,  "y2": 1300, "q": "Riding the wave" },
+          { "x1": -0.7, "x2": 1.0,  "y1": 500,  "y2": 1300, "q": "Safe for now"    },
+          { "x1": 1.0,  "x2": 9.5,  "y1": -100, "y2": 500,  "q": "Scrambling"      },
+          { "x1": -0.7, "x2": 1.0,  "y1": -100, "y2": 500,  "q": "Left behind"     }
+        ]
+      },
+      "mark": { "type": "rect", "opacity": 0.06 },
+      "encoding": {
+        "x":  { "field": "x1", "type": "quantitative", "scale": { "domain": [-0.5, 9.5] } },
+        "x2": { "field": "x2" },
+        "y":  { "field": "y1", "type": "quantitative", "scale": { "domain": [-100, 1300] } },
+        "y2": { "field": "y2" },
+        "color": {
+          "condition": [
+            { "test": "datum.q === 'Riding the wave'", "value": "#de1e1c" },
+            { "test": "datum.q === 'Scrambling'",      "value": "#f0a090" },
+            { "test": "datum.q === 'Safe for now'",    "value": "#9a9690" },
+            { "test": "datum.q === 'Left behind'",     "value": "#4a4640" }
+          ],
+          "value": "#9a9690"
+        }
+      }
+    },
+    {
+      "comment": "Vertical quadrant rule at AI demand = national average 1.0%",
+      "mark": { "type": "rule", "color": "#e0dbd4", "strokeWidth": 1, "strokeDash": [4, 4] },
+      "encoding": { "x": { "datum": 1.0, "type": "quantitative" } }
+    },
+    {
+      "comment": "Horizontal quadrant rule at 500k workers",
+      "mark": { "type": "rule", "color": "#e0dbd4", "strokeWidth": 1, "strokeDash": [4, 4] },
+      "encoding": { "y": { "datum": 500, "type": "quantitative" } }
+    },
+    {
+      "comment": "Quadrant labels — top corners of each zone",
+      "data": {
+        "values": [
+          { "x": 1.1,  "y": 1240, "label": "Riding the wave", "c": "#de1e1c" },
+          { "x": -0.4, "y": 1240, "label": "Safe for now",    "c": "#9a9690" },
+          { "x": 1.1,  "y": 0,    "label": "Scrambling",      "c": "#c07060" },
+          { "x": -0.4, "y": 0,    "label": "Left behind",     "c": "#4a4640" }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 8.5,
+        "fontWeight": "bold",
+        "fontStyle": "italic",
+        "font": "Georgia, 'Times New Roman', serif",
+        "align": "left",
+        "baseline": "top"
+      },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative" },
+        "y": { "field": "y", "type": "quantitative" },
+        "text": { "field": "label" },
+        "color": { "field": "c", "type": "nominal", "scale": null, "legend": null }
+      }
+    },
+    {
+      "comment": "Bubbles",
+      "params": [
+        { "name": "hover", "select": { "type": "point", "on": "mouseover", "clear": "mouseout" } }
+      ],
+      "mark": { "type": "point", "filled": true },
+      "encoding": {
+        "x": {
+          "field": "ai_demand",
+          "type": "quantitative",
+          "title": "AI skill demand (% of job postings)",
+          "scale": { "domain": [-0.5, 9.5] },
+          "axis": { "labelExpr": "datum.value + '%'", "values": [0, 2, 4, 6, 8] }
+        },
+        "y": {
+          "field": "workers_thousands",
+          "type": "quantitative",
+          "title": "Employed persons (thousands)",
+          "scale": { "domain": [-100, 1300] },
+          "axis": { "values": [0, 200, 400, 600, 800, 1000, 1200] }
+        },
+        "size": {
+          "field": "workers_thousands",
+          "type": "quantitative",
+          "title": "Workers (thousands)",
+          "scale": { "range": [60, 900] },
+          "legend": {
+            "title": "Workforce size (thousands)",
+            "values": [200, 500, 900],
+            "symbolFillColor": "#9a9690",
+            "orient": "bottom-right"
+          }
+        },
+        "color": {
+          "field": "quadrant",
+          "type": "nominal",
+          "title": "AI exposure vs workforce scale",
+          "scale": {
+            "domain": ["Riding the wave", "Scrambling", "Safe for now", "Left behind"],
+            "range":  ["#de1e1c",         "#f0a090",    "#9a9690",      "#4a4640"    ]
+          },
+          "legend": {
+            "title": "Quadrant",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 4
+          }
+        },
+        "opacity": {
+          "condition": { "param": "hover", "empty": false, "value": 1 },
+          "value": 0.85
+        },
+        "tooltip": [
+          { "field": "occupation",        "title": "Occupation" },
+          { "field": "quadrant",          "title": "Zone" },
+          { "field": "ai_demand",         "title": "AI demand (%)",       "format": ".1f" },
+          { "field": "workers_thousands", "title": "Workers (thousands)", "format": "," }
+        ]
+      }
+    },
+    {
+      "comment": "Occupation labels — offset above bubble",
+      "mark": { "type": "text", "fontSize": 8.5, "dy": -12, "align": "center" },
+      "encoding": {
+        "x": { "field": "ai_demand",        "type": "quantitative" },
+        "y": { "field": "workers_thousands", "type": "quantitative" },
+        "text": { "field": "occupation" },
+        "opacity": {
+          "condition": { "param": "hover", "empty": false, "value": 1 },
+          "value": 0.65
+        },
+        "color": {
+          "field": "quadrant",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Riding the wave", "Scrambling", "Safe for now", "Left behind"],
+            "range":  ["#de1e1c",         "#c07060",    "#6a6660",      "#2a2620"    ]
+          },
+          "legend": null
+        }
+      }
+    }
+  ]
+}

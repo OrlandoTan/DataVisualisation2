@@ -1,0 +1,25 @@
+industry,stage,pct
+Services,Adopting,48
+Services,Not adopting,37
+Services,Not aware,15
+Retail trade,Adopting,45
+Retail trade,Not adopting,36
+Retail trade,Not aware,19
+Distribution,Adopting,35
+Distribution,Not adopting,32
+Distribution,Not aware,33
+Construction,Adopting,34
+Construction,Not adopting,41
+Construction,Not aware,25
+Agriculture,Adopting,32
+Agriculture,Not adopting,37
+Agriculture,Not aware,30
+Health and education,Adopting,31
+Health and education,Not adopting,41
+Health and education,Not aware,28
+Hospitality,Adopting,31
+Hospitality,Not adopting,42
+Hospitality,Not aware,27
+Manufacturing,Adopting,30
+Manufacturing,Not adopting,51
+Manufacturing,Not aware,19

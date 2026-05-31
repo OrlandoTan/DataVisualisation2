@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 260,
+  "height": 260,
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "view": { "stroke": null }
+  },
+  "data": { "url": "../data/waffle.csv" },
+  "layer": [
+    {
+      "comment": "Waffle squares",
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "col",
+          "type": "ordinal",
+          "axis": null
+        },
+        "y": {
+          "field": "row",
+          "type": "ordinal",
+          "axis": null,
+          "sort": "descending"
+        },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Adopting AI", "Not adopting"],
+            "range":  ["#de1e1c",    "#e0dbd4"   ]
+          },
+          "legend": {
+            "title": null,
+            "orient": "bottom",
+            "direction": "horizontal",
+            "labelFontSize": 9,
+            "labelColor": "#4a4640",
+            "symbolStrokeWidth": 0,
+            "symbolSize": 80
+          }
+        },
+        "opacity": {
+          "condition": { "test": "datum.is_you === 'yes'", "value": 1 },
+          "value": 0.85
+        },
+        "tooltip": [
+          { "field": "category", "title": "Status" },
+          { "field": "id",       "title": "Square #" }
+        ]
+      }
+    },
+    {
+      "comment": "YOU label on square 26",
+      "transform": [{ "filter": "datum.is_you === 'yes'" }],
+      "mark": {
+        "type": "text",
+        "fontSize": 7,
+        "fontWeight": "bold",
+        "color": "white",
+        "baseline": "middle",
+        "align": "center"
+      },
+      "encoding": {
+        "x": { "field": "col", "type": "ordinal" },
+        "y": { "field": "row", "type": "ordinal", "sort": "descending" },
+        "text": { "value": "YOU?" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+state,state_code,ai_adoption,ai_companies,adoption_norm,companies_norm
+Australian Capital Territory,ACT,0.75,19,1.0,0.062
+Victoria,VIC,0.72,254,0.897,0.833
+New South Wales,NSW,0.68,305,0.759,1.0
+Queensland,QLD,0.61,144,0.517,0.472
+Western Australia,WA,0.59,85,0.448,0.279
+South Australia,SA,0.55,51,0.31,0.167
+Tasmania,TAS,0.48,0,0.069,0.0
+Northern Territory,NT,0.46,0,0.0,0.0

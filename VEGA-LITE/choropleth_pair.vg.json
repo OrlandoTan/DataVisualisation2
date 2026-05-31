@@ -1,0 +1,139 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "config": {
+    "font": "Helvetica Neue, Helvetica, Arial, sans-serif",
+    "view": { "stroke": null },
+    "legend": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 9,
+      "titleColor": "#9a9690",
+      "titleFontSize": 9,
+      "titleFontWeight": "normal"
+    },
+    "header": {
+      "labelColor": "#4a4640",
+      "labelFontSize": 11,
+      "labelFontWeight": "normal",
+      "labelFont": "Helvetica Neue, Helvetica, Arial, sans-serif"
+    }
+  },
+  "resolve": { "scale": { "color": "shared" } },
+  "params": [
+    {
+      "name": "state_select",
+      "select": { "type": "point", "fields": ["state"], "on": "click" }
+    },
+    {
+      "name": "state_hover",
+      "select": { "type": "point", "fields": ["state"], "on": "pointerover", "clear": "pointerout" }
+    }
+  ],
+  "hconcat": [
+    {
+      "title": {
+        "text": "AI adoption 2024",
+        "font" : "serif",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#4a4640", "anchor": "middle"
+      },
+      "width": 270, 
+      "height": 215,
+      "data": { "url": "../data/state_adoption_projection.csv" },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": { "url": "../data/STE_2016_AUST.json", "format": { "type": "topojson", "feature": "STE_2016_AUST" } },
+            "key": "properties.STE_NAME16"
+          },
+          "as": "geo"
+        }
+      ],
+      "projection": { "type": "albers", "rotate": [-132, 0, 0], "center": [-27.5, -25], "parallels": [-18, -36], "scale": 300 },
+      "mark": { "type": "geoshape", "stroke": "#4e4d4a", "strokeWidth": 1 },
+      "encoding": {
+        "shape": { "field": "geo", "type": "geojson" },
+        "color": {
+          "field": "adoption_2024",
+          "type": "quantitative",
+          "scale": { "domain": [0.4, 0.95], "range": ["#f7f0ee", "#de1e1c"] },
+          "legend": { "title": "Adoption rate", "format": ".0%", "orient": "bottom", "direction": "horizontal", "gradientLength": 120 }
+        },
+        "opacity": {
+          "condition": { "param": "state_select", "empty": true, "value": 1 },
+          "value": 0.35
+        },
+        "strokeWidth": {
+          "condition": [
+            { "param": "state_select", "empty": false, "value": 2 },
+            { "param": "state_hover",  "empty": false, "value": 1 }
+          ],
+          "value": 0.5
+        },
+        "stroke": {
+          "condition": { "param": "state_select", "empty": false, "value": "#1a1814" },
+          "value": "#4e4d4a"
+        },
+        "tooltip": [
+          { "field": "state",          "title": "State" },
+          { "field": "adoption_2024",  "title": "Adoption 2024",  "format": ".0%" },
+          { "field": "adoption_2028",  "title": "Projected 2028", "format": ".0%" }
+        ]
+      }
+    },
+    {
+      "title": {
+        "text": "Projected adoption 2028 ",
+        "font": "serif",
+        "fontSize": 10, 
+        "fontWeight": "bold",
+        "color": "#4a4640", "anchor": "middle"
+      },
+      "width": 270, "height": 215,
+      "data": { "url": "../data/state_adoption_projection.csv" },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": { "url": "../data/STE_2016_AUST.json", "format": { "type": "topojson", "feature": "STE_2016_AUST" } },
+            "key": "properties.STE_NAME16"
+          },
+          "as": "geo"
+        }
+      ],
+      "projection": { "type": "albers", "rotate": [-132, 0, 0], "center": [-27.5, -25], "parallels": [-18, -36], "scale": 300 },
+      "mark": { "type": "geoshape", "stroke": "#4e4d4a", "strokeWidth": 1},
+      "encoding": {
+        "shape": { "field": "geo", "type": "geojson" },
+        "color": {
+          "field": "adoption_2028",
+          "type": "quantitative",
+          "scale": { "domain": [0.4, 0.95], "range": ["#f7f0ee", "#de1e1c"] },
+          "legend": null
+        },
+        "opacity": {
+          "condition": { "param": "state_select", "empty": true, "value": 1 },
+          "value": 0.35
+        },
+        "strokeWidth": {
+          "condition": [
+            { "param": "state_select", "empty": false, "value": 2 },
+            { "param": "state_hover",  "empty": false, "value": 1 }
+          ],
+          "value": 0.5
+        },
+        "stroke": {
+          "condition": { "param": "state_select", "empty": false, "value": "#1a1814" },
+          "value": "#4e4d4a"
+        },
+        "tooltip": [
+          { "field": "state",          "title": "State" },
+          { "field": "adoption_2024",  "title": "Adoption 2024",  "format": ".0%" },
+          { "field": "adoption_2028",  "title": "Projected 2028", "format": ".0%" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+state,industry,adoption_pct
+ACT,Services,100.0
+ACT,Retail trade,93.8
+ACT,Distribution,72.9
+ACT,Construction,70.8
+ACT,Agriculture,66.7
+ACT,Health and education,64.6
+ACT,Hospitality,64.6
+ACT,Manufacturing,62.5
+VIC,Services,96.0
+VIC,Retail trade,90.0
+VIC,Distribution,70.0
+VIC,Construction,68.0
+VIC,Agriculture,64.0
+VIC,Health and education,62.0
+VIC,Hospitality,62.0
+VIC,Manufacturing,60.0
+NSW,Services,90.7
+NSW,Retail trade,85.0
+NSW,Distribution,66.1
+NSW,Construction,64.2
+NSW,Agriculture,60.4
+NSW,Health and education,58.6
+NSW,Hospitality,58.6
+NSW,Manufacturing,56.7
+QLD,Services,81.3
+QLD,Retail trade,76.2
+QLD,Distribution,59.3
+QLD,Construction,57.6
+QLD,Agriculture,54.2
+QLD,Health and education,52.5
+QLD,Hospitality,52.5
+QLD,Manufacturing,50.8
+WA,Services,78.7
+WA,Retail trade,73.8
+WA,Distribution,57.4
+WA,Construction,55.7
+WA,Agriculture,52.4
+WA,Health and education,50.8
+WA,Hospitality,50.8
+WA,Manufacturing,49.2
+SA,Services,73.3
+SA,Retail trade,68.8
+SA,Distribution,53.5
+SA,Construction,51.9
+SA,Agriculture,48.9
+SA,Health and education,47.4
+SA,Hospitality,47.4
+SA,Manufacturing,45.8
+TAS,Services,64.0
+TAS,Retail trade,60.0
+TAS,Distribution,46.7
+TAS,Construction,45.3
+TAS,Agriculture,42.7
+TAS,Health and education,41.3
+TAS,Hospitality,41.3
+TAS,Manufacturing,40.0
+NT,Services,61.3
+NT,Retail trade,57.5
+NT,Distribution,44.7
+NT,Construction,43.4
+NT,Agriculture,40.9
+NT,Health and education,39.6
+NT,Hospitality,39.6
+NT,Manufacturing,38.3
